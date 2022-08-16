@@ -3,20 +3,20 @@ import {Text, Image, View, StyleSheet, TouchableOpacity, Button} from 'react-nat
 import { CartContext } from '../CartContext';
 
 
-export function Product({name, image, id}) {
+export function Product({title, imageUrl, id}) {
   const { addItemToCart } = useContext(CartContext);
   
   function onPressCart() {
-    addItemToCart(id);
+    addItemToCart({id,title,imageUrl});
   }
   return (
     <TouchableOpacity style={styles.cont}>
       <Image
         style={styles.img}
-        source={image}
+        source={{uri: imageUrl}}
       />
       <View style={styles.infoContainer}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{title}</Text>
         <Button
             onPress={onPressCart}
             title="Add to cart"

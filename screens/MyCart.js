@@ -12,9 +12,9 @@ export function Cart ({navigation}) {
     return (
        <View style={styles.cartLine}>
               <Image style={styles.thumb}
-        source={item.product.image}
+        source={{uri: item.imageUrl}}
       />
-          <Text style={styles.lineLeft}>{item.product.name} x {item.qty}</Text>
+          <Text style={styles.lineLeft}>{item.title} x {item.qty}</Text>
        </View>
     );
   }
@@ -25,7 +25,7 @@ export function Cart ({navigation}) {
       contentContainerStyle={styles.itemsListContainer}
       data={items}
       renderItem={renderItem}
-      keyExtractor={(item) => item.product.id.toString()}
+      keyExtractor={(item) => item.id.toString()}
     />
   );
 }
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',    
   },
   lineLeft: {
-    fontSize: 20, 
+    fontSize: 15, 
     lineHeight: 40, 
     color:'#333333',
     paddingLeft:30
