@@ -3,7 +3,8 @@ import { View, Text, FlatList, StyleSheet,ActivityIndicator } from 'react-native
 
 import { Product } from '../components/Product.js';
 import axios from 'axios';
-
+import { useInfiniteQuery } from "react-query";
+ 
 function Loader() {
   return (
     <View style={styles.loader}>
@@ -13,6 +14,24 @@ function Loader() {
 }
 
 export function ProductsFlattening ({navigation}) {
+
+  const {fetchNextPage} = useInfiniteQuery(
+    'products',
+    () =>
+      getDataFromServer(
+        `https://api.opensea.io/api/v1/collections?offset=${offset}&limit=20`,
+      ),
+    {
+      onSuccess: () => {
+        setOffset(offset + 10);
+      },
+      getNextPageParam: () => offset,
+    },
+  );
+
+  function listEnd() {
+    fetchNextPage();
+  }
 
   function renderProduct({item: product}) {
     return (
@@ -41,16 +60,9 @@ export function ProductsFlattening ({navigation}) {
 
     setProducts(data);
     setLoader(false);
-    setOffset(offset + 10);
-  }
+    }
 
-  useEffect(() => {
-    getDataFromServer(
-      'https://api.opensea.io/api/v1/collections?offset=' +
-        offset +
-        '&limit=10',
-    );
-  });
+
   
  
   if (loader) {
@@ -64,6 +76,7 @@ export function ProductsFlattening ({navigation}) {
         data={products}
         renderItem={renderProduct}
         numColumns={1}
+        onEndReached={listEnd}
       />
     );
   }

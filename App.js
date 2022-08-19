@@ -37,10 +37,8 @@ function App() {
 
   return (
     
-    <CartProvider>
       <QueryClientProvider client={queryClient}>
-        <Dataset/>
-     </QueryClientProvider>
+    <CartProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name='Products' component={ProductsFlattening} 
@@ -60,6 +58,7 @@ function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </CartProvider>
+          </QueryClientProvider>
   );
 }
 
