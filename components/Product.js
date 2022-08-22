@@ -1,11 +1,13 @@
 import React, {useContext, useEffect} from 'react';
 import {Text, Image, View, StyleSheet, TouchableOpacity, Button} from 'react-native';
-import { CartContext } from '../CartContext';
+// import { CartContext } from '../CartContext';
+import useCartStore from '../zustandCart';
 
 
 export function Product({title, imageUrl, id}) {
-  const { addItemToCart } = useContext(CartContext);
-  
+  // const { addItemToCart } = useContext(CartContext);
+  const addItemToCart = useCartStore(state => state.addItemToCart);
+
   function onPressCart() {
     addItemToCart({id,title,imageUrl});
   }

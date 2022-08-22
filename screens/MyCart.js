@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 
-import { CartContext } from '../CartContext';
+import useCartStore from '../zustandCart';
+
 
 export function Cart ({navigation}) {
 
-  const {items} = useContext(CartContext);
-  
+  // const {items} = useContext(CartContext);
+  const items = useCartStore(state => state.cart);
+
 
   function renderItem({item}) {
     return (

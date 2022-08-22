@@ -1,18 +1,20 @@
 
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import useCartStore from '../zustandCart';
 
-import { CartContext } from '../CartContext';
 
 export function CartImg({navigation}) {
-  const {getItemsCount} = useContext(CartContext); //Gettings Items in cart.
+  // const {getItemsCount} = useContext(CartContext); //Gettings Items in cart.
+  const itemCount = useCartStore(state => state.itemCount);
+
   return (
     <View style={styles.container}>
       <Text style={styles.text} 
         onPress={() => {
           navigation.navigate('Cart');
         }}
-      >My Cart ({getItemsCount()})</Text>
+      >My Cart ({itemCount})</Text>
     </View>
   );
 }
